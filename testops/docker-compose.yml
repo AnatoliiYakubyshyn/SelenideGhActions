@@ -27,7 +27,7 @@ services:
     command: ["--selenoid-uri", "http://selenoid:4444"]
   chrome_100:
     image: "sskorol/selenoid_chromium_vnc:100.0"
-    container_name: chrome_80
+    container_name: chrome_100
     links:
       - selenoid
       - selenoid-ui
