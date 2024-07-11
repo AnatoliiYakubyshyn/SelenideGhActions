@@ -27,4 +27,4 @@ jobs:
       - name: start selenoid
         run: ./testops/run-selenoid.sh
       - name: test
-        run: mvn test
+        run: mvn clean test
