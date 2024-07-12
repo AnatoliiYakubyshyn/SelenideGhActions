@@ -22,8 +22,9 @@ resource "aws_instance" "runner" {
     sudo echo "9e883d210df8c6028aff475475a457d380353f9d01877d51cc01a17b2a91161d  actions-runner-linux-x64-2.317.0.tar.gz" | shasum -a 256 -c# Extract the installer
     sudo tar xzf ./actions-runner-linux-x64-2.317.0.tar.gz
     ./config.sh --url https : //github.com/AnatoliiYakubyshyn/SelenideGhActions --token "${var.gh_token}"
-  ./run.sh
+    ./run.sh
   EOT
+    interpreter = ["bash", "-c"]
 
   }
 }
