@@ -23,6 +23,7 @@ resource "aws_instance" "runner" {
               sudo curl -o /usr/local/bin/runner https://github.com/actions/runner/releases/download/v2.281.1/actions-runner-linux-x64-2.281.1.tar.gz
               sudo tar xzf ./runner -C /usr/local/bin
               sudo ./config.sh --url https://github.com/your-username/your-repo --token "${var.gh_token}"
+              sudo ./run.sh
               sudo ./svc.sh install
               sudo ./svc.sh start
               EOF
