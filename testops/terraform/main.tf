@@ -16,16 +16,14 @@ resource "aws_instance" "runner" {
 
   user_data = <<-EOF
               #!/bin/bash
-              sudo yum update -y
-              sudo yum install -y docker
-              sudo service docker start
-              sudo usermod -a -G docker ec2-user
-              sudo curl -o /usr/local/bin/runner https://github.com/actions/runner/releases/download/v2.281.1/actions-runner-linux-x64-2.281.1.tar.gz
-              sudo tar xzf ./runner -C /usr/local/bin
-              sudo ./config.sh --url https://github.com/your-username/your-repo --token "${var.gh_token}"
-              sudo ./run.sh
-              sudo ./svc.sh install
-              sudo ./svc.sh start
+              # Create a folder
+              sudo mkdir actions-runner && cd actions-runner# Download the latest runner package
+              sudo curl -o actions-runner-linux-x64-2.317.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.317.0/actions-runner-linux-x64-2.317.0.tar.gz# Optional: Validate the hash
+              sudo echo "9e883d210df8c6028aff475475a457d380353f9d01877d51cc01a17b2a91161d  actions-runner-linux-x64-2.317.0.tar.gz" | shasum -a 256 -c# Extract the installer
+              sudo tar xzf ./actions-runner-linux-x64-2.317.0.tar.gz
+
+              ./config.sh --url https://github.com/AnatoliiYakubyshyn/SelenideGhActions --token "${var.gh_token}"
+              ./run.sh
               EOF
 
   lifecycle {
