@@ -14,7 +14,7 @@ public class GoogleSearchTest {
         Configuration.remote ="http://localhost:4445/wd/hub";
         Configuration.timeout = 10000;
         Configuration.browser = "chrome";
-        Configuration.browserVersion = "125";
+        Configuration.browserVersion = "120";
     }
 
     @Test
