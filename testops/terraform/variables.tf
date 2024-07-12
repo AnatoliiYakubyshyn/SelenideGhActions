@@ -5,7 +5,7 @@ variable "gh_token" {
 
 variable "aws_region" {
   description = "The AWS region to deploy resources in"
-  default     = "eu-north-1c"
+  default     = "eu-north-1"
 }
 
 variable "instance_type" {
