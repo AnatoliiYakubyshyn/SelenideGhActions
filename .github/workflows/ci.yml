@@ -78,5 +78,3 @@ jobs:
       - name: Destroy Terraform configuration
         run: terraform destroy -auto-approve
         working-directory: ./testops/terraform
-        env:
-          TF_VAR_gh_token: ${{ secrets.GH_TOKEN }}
