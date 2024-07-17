@@ -5,9 +5,6 @@ import boto3.resources
 aws_access_key_id = sys.argv[1]
 aws_secret_access_key = sys.argv[2]
 ec2_id = sys.argv[3]
-
-instance_type = "t3.micro"
-ami = "ami-0249211c9916306f8"
 region = "eu-north-1"
 
 # Initialize a session using credentials

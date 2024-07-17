@@ -1,3 +1,4 @@
+import base64
 import sys
 import boto3
 import boto3.resources
@@ -18,8 +19,9 @@ ec2 = boto3.resource('ec2',
 )
 
 
-user_data_script = f'''
-#!/bin/bash
+user_data_script = f'''#!/bin/bash
+
+export AGENT_ALLOW_RUNASROOT="1"
 
 # Example user data script
 mkdir actions-runner && cd actions-runner
@@ -27,10 +29,11 @@ curl -o actions-runner-linux-x64-2.317.0.tar.gz -L https://github.com/actions/ru
 echo "9e883d210df8c6028aff475475a457d380353f9d01877d51cc01a17b2a91161d  actions-runner-linux-x64-2.317.0.tar.gz" | shasum -a 256 -c
 tar xzf ./actions-runner-linux-x64-2.317.0.tar.gz
 ./config.sh --url https://github.com/AnatoliiYakubyshyn/SelenideGhActions --pat {gh_token}
-./run.sh
+./svc.sh install
+./svc.sh start
 '''
 # Create EC2 client
 
 response = ec2.create_instances(ImageId=ami,InstanceType=instance_type,MinCount=1,MaxCount=1,
-                                UserData=user_data_script)
+                                UserData=base64.b64encode(user_data_script.encode("ascii")).decode('ascii'))
 print(response[0].id)
