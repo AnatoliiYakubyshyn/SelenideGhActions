@@ -21,7 +21,7 @@ ec2 = boto3.resource('ec2',
 
 user_data_script = f'''#!/bin/bash
 
-sudo yum install docker
+yum install docker
 
 # Add the repository to Apt sources:
 echo \
