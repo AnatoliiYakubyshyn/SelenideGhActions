@@ -45,6 +45,12 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      - name: Install Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          run: |
+            apt-get update
+            apt-get install -y docker.io
       - name: start selenoid
         run: ./testops/run-selenoid.sh
       - name: Set up Maven
