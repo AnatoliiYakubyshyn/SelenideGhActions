@@ -29,6 +29,10 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.8.2
       - name: compile
         run: mvn compile
   test:
@@ -43,6 +47,10 @@ jobs:
           distribution: 'temurin'
       - name: start selenoid
         run: ./testops/run-selenoid.sh
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.8.2
       - name: test
         run: mvn clean test
   destroy-runner:
