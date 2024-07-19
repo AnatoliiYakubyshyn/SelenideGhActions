@@ -10,8 +10,8 @@ jobs:
       init-success: ${{ job.status }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Python libs
+      - uses: actions/checkout@v4
+      - name: setup Python libs
         run: |
           python -m pip install --upgrade pip boto3
       - name: Create runner
@@ -23,52 +23,40 @@ jobs:
     runs-on: self-hosted
     needs: init-runner
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up JDK 11
-        uses: actions/setup-java@v3
+        uses:  actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'temurin'
-      - name: Set up Apache Maven
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: 'maven'
-      - name: Compile
+      - name: compile
         run: mvn compile
-
   test:
     runs-on: self-hosted
     needs: build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up JDK 11
-        uses: actions/setup-java@v3
+        uses:  actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'temurin'
-      - name: Set up Apache Maven
-        uses: actions/setup-maven@v3
-        with:
-          maven-version: '3.8.4'
-          cache: 'maven'
-      - name: Start Selenoid
+      - name: start selenoid
         run: ./testops/run-selenoid.sh
-      - name: Test
+      - name: test
         run: mvn clean test
-
   destroy-runner:
     runs-on: ubuntu-latest
     needs:
       - test
       - init-runner
-    if: ${{ needs.init-runner.outputs.init-success == 'true' }}
+    if: ${{ needs.init.outputs.init-success == 'true' }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Python libs
+      - uses: actions/checkout@v4
+      - name: setup Python libs
         run: |
           ./testops/provisioning/modules.sh
           source ./bin/activate
       - name: Destroy runner
         run: python3 testops/provisioning/delete_script.py ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} "${{ steps.init-runner.outputs.output_id }}"
+
