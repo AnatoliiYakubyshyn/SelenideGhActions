@@ -21,12 +21,7 @@ ec2 = boto3.resource('ec2',
 
 user_data_script = f'''#!/bin/bash
 
-# Add Docker's official GPG key:
-apt-get update
-apt-get install ca-certificates curl
-install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-chmod a+r /etc/apt/keyrings/docker.asc
+sudo yum install docker
 
 # Add the repository to Apt sources:
 echo \
