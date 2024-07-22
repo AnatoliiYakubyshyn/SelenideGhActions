@@ -47,6 +47,10 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      - name: Install docker
+        run: |
+          sudo yum install docker -y
+          sudo systemctl start docker
       - name: start selenoid
         run: ./testops/run-selenoid.sh
       - name: Set up Maven
