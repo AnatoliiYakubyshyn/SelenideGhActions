@@ -18,6 +18,7 @@ jobs:
         run: |
           output=$(python3 testops/provisioning/create_script.py ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} ${{ secrets.GH_TOKEN }})
           echo "ID=$output" >> $GITHUB_OUTPUT
+          echo $output
 
   build:
     runs-on: self-hosted
