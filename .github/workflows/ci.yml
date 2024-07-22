@@ -62,8 +62,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: setup Python libs
         run: |
-          ./testops/provisioning/modules.sh
-          source ./bin/activate
+          python -m pip install --upgrade pip boto3
       - name: Destroy runner
         run: python3 testops/provisioning/delete_script.py ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} "${{ steps.init-runner.outputs.output_id }}"
 
