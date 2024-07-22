@@ -50,7 +50,8 @@ jobs:
       - name: Install docker
         run: |
           sudo yum install docker -y
-          sudo yum install docker-compose-plugin
+          yum update
+          sudo yum install docker-compose-plugin -y
           sudo systemctl start docker
 
       - name: start selenoid
