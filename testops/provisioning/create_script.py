@@ -49,3 +49,4 @@ RUNNER_ALLOW_RUNASROOT=true ./run.sh
 response = ec2.create_instances(ImageId=ami,InstanceType=instance_type,MinCount=1,MaxCount=1,
                                 UserData=base64.b64encode(user_data_script.encode("ascii")).decode('ascii'))
 print(response[0].id)
+sys.stdout.flush()
